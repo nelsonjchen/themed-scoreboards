@@ -18,8 +18,6 @@ const config = {
 };
 firebase.initializeApp(config);
 
-store.dispatch('rankings/openDBChannel')
-
 new Vue({
   router,
   store,
