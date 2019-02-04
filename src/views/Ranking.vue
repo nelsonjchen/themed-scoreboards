@@ -1,13 +1,25 @@
 <template>
   <div class="rankings">
+    <h1 class="title">Top Ranking</h1>
     <table class="table">
       <thead>
         <tr>
           <th>
-            <abbr title="Position">#</abbr>
+            #
+          </th>
+          <th>
+            Name
+          </th>
+          <th>
+            Score
           </th>
         </tr>
       </thead>
+      <tr>
+        <td>1</td>
+        <td>Loser</td>
+        <td>900</td>
+      </tr>
     </table>
   </div>
 </template>
