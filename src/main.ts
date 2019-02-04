@@ -14,9 +14,11 @@ const config = {
   databaseURL: 'https://themed-scoreboards.firebaseio.com',
   projectId: 'themed-scoreboards',
   storageBucket: 'themed-scoreboards.appspot.com',
-  messagingSenderId: '1051809615125'
+  messagingSenderId: '1051809615125',
 };
 firebase.initializeApp(config);
+
+store.dispatch('rankings/openDBChannel')
 
 new Vue({
   router,
