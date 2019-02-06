@@ -23,13 +23,14 @@ import { Component, Vue } from "vue-property-decorator";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { mapState, mapMutations } from "vuex";
+import { Score, Ranking as RankingType } from "@/types";
 
 @Component({
   computed: mapState(["ranking"])
 })
 export default class Ranking extends Vue {
   source!: firebase.firestore.DocumentReference;
-  ranking!: any;
+  ranking!: RankingType;
 
   public created() {
     this.source = firebase
@@ -40,7 +41,7 @@ export default class Ranking extends Vue {
   }
 
   get sortedScores() {
-    function compare(a: any, b: any) {
+    function compare(a: Score, b: Score) {
       if (a.score === undefined) {
         return 1;
       }
