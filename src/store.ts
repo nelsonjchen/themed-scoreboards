@@ -7,7 +7,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     rankings: [],
-    ranking: [],
+    ranking: {
+      entries: []
+    },
   },
   mutations: {
     ...firebaseMutations,
