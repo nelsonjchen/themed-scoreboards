@@ -3,7 +3,7 @@
     <h1 class="title">Scoreboard List</h1>
     <ol>
       <li v-for="(ranking, rankingIndex) in rankings" v-bind:key="ranking.name">
-        {{ rankingIndex + 1}}. {{ranking.name}}
+        <router-link :to="{ name: 'ranking', params: { id: ranking.id }}">{{ rankingIndex + 1}}. {{ranking.name}}</router-link>
       </li>
     </ol>
   </div>
