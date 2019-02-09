@@ -19,25 +19,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import firebase from "firebase/app";
-import "firebase/firestore";
-import { mapState, mapMutations } from "vuex";
-import { Score, Ranking as RankingType } from "@/types";
+import { Component, Vue } from 'vue-property-decorator';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import { mapState, mapMutations } from 'vuex';
+import { Score, Ranking as RankingType } from '@/types';
 
 @Component({
-  computed: mapState(["ranking"])
+  computed: mapState(['ranking']),
 })
 export default class Ranking extends Vue {
-  source!: firebase.firestore.DocumentReference;
-  ranking!: RankingType;
+  public source!: firebase.firestore.DocumentReference;
+  public ranking!: RankingType;
 
   public created() {
     this.source = firebase
       .firestore()
-      .collection("rankings")
-      .doc(this.$route.params["id"]);
-    this.$store.dispatch("setRankingRef", this.source);
+      .collection('rankings')
+      .doc(this.$route.params.id);
+    this.$store.dispatch('setRankingRef', this.source);
   }
 
   get sortedScores() {
