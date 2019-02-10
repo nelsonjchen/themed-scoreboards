@@ -109,7 +109,7 @@ export default class Ranking extends Vue {
   }
 
   get validUpdate() {
-    return this.name !== '' && this.score !== undefined && this.contact !== '';
+    return this.name !== '' && (this.score !== undefined || this.contact !== '');
   }
 
   public addOrUpdate() {
@@ -117,9 +117,10 @@ export default class Ranking extends Vue {
       return;
     }
 
-    this.source.update({
-      entries: this.ranking.entries.concat(
-        [],
+    let entries = this.ranking.entries.concat([]);
+    let ranking = entries.find(score => score.name == this.name);
+    if (ranking == undefined) {
+      entries = entries.concat(
         [
           {
             name: this.name,
@@ -127,33 +128,16 @@ export default class Ranking extends Vue {
             score: this.score || 0,
           },
         ],
-      ),
+      );
+    } else {
+      ranking.score = this.score || ranking.score;
+      ranking.contact = this.contact || ranking.contact;
+    }
+
+    this.source.update({
+      entries
     });
 
-    // this.$firebaseRefs.scores.orderByChild('name').equalTo(this.name).limitToFirst(1).once('value', (snapshot) => {
-    //   if (snapshot.val() === null) {
-    //     this.$firebaseRefs.scores.push(
-    //       {
-    //         name: this.name,
-    //         contact: this.contact,
-    //         score: this.score,
-    //       },
-    //     );
-    //   } else {
-    //     snapshot.forEach((child) => {
-    //       if (this.score !== null) {
-    //         snapshot.ref.child(child.key).update({
-    //           score: this.score,
-    //         });
-    //       }
-    //       if (this.contact !== '') {
-    //         snapshot.ref.child(child.key).update({
-    //           contact: this.contact,
-    //         });
-    //       }
-    //     });
-    //   }
-    // });
     this.name = '';
     this.contact = '';
     this.score = null;
