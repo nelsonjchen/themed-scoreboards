@@ -54,7 +54,7 @@
         <td>{{ score.name }}</td>
         <td>{{ score.score }}</td>
         <td>{{ score.contact }}</td>
-        <td>❌</td>
+        <td><a @click="deleteName(score.name)"> ❌ </a></td>
       </tr>
     </table>
   </div>
@@ -112,14 +112,22 @@ export default class Ranking extends Vue {
     return this.name !== '' && (this.score !== undefined || this.contact !== '');
   }
 
+  public deleteName(name: string) {
+    const entries = this.ranking.entries.filter((score) => score.name !== name);
+    this.source.update({
+      entries,
+    });
+
+  }
+
   public addOrUpdate() {
     if (!this.validUpdate) {
       return;
     }
 
     let entries = this.ranking.entries.concat([]);
-    let ranking = entries.find(score => score.name == this.name);
-    if (ranking == undefined) {
+    const ranking = entries.find((score) => score.name === this.name);
+    if (ranking === undefined) {
       entries = entries.concat(
         [
           {
@@ -135,7 +143,7 @@ export default class Ranking extends Vue {
     }
 
     this.source.update({
-      entries
+      entries,
     });
 
     this.name = '';
